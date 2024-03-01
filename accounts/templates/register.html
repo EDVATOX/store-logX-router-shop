@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+     <style>
+
+
+
+
+
+
+
+
+
+          button:hover {
+            opacity:1;
+          }
+
+
+
+
+          </style>
+
+
+
+        <!-- Product section-->
+        <section class="py-5">
+
+
+
+          <form  class="form-sign"  style="border:1px solid #ccc" method="POST">
+              {% csrf_token %}
+            <div class="container-sign">
+              <h1 class="text-sign">ساخت اکانت</h1>
+              <p class="text-sign">لطفا فرم زیر را چهت ساخت حساب کاربری پر نمایید</p>
+              <hr>
+
+
+              <label for="uname"><b>نام کاربری</b></label>
+                {{form.username}}
+
+              <label for="psw"><b>پسورد</b></label>
+                {{form.password1}}
+
+              <label for="psw-repeat"><b>تکرار پسورد</b></label>
+              {{form.password2}}
+
+
+
+
+              <div class="clearfix">
+                <button type="button" class="cancelbtn clc"><a href="{% url 'login' %}" style="text-decoration:none; color:#ffffff"> برو به صفحه ورود</a></button>
+                <button type="submit" class="signupbtn">نایید و ساخت اکانت</button>
+              </div>
+            </div>
+              {% if form.errors %}
+                 {% for field in form %}
+                     {% for error in field.errors %}
+                         <p style="color: red;" dir="rtl" > {{ error }} </p>
+                     {% endfor %}
+                 {% endfor %}
+              {% endif %}
+          </form>
+
+
+
+      </section>
+
+
+{% endblock content %}

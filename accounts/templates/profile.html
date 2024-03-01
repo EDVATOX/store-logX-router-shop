@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block body %}
+ <div class="section trending">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-heading">
+            <h6>پروفایل</h6>
+            <h2>سبد خرید</h2>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="main-button">
+            <a href="{% url 'profile' %}">سبد خرید</a><a href="{% url 'change-password' %}">نغییر رمز عبور</a>
+          </div>
+        </div>
+          {% for item in items %}
+        <div  class="col-lg-3 col-md-6">
+          <div dir="ltr" class="item">
+            <div dir="ltr" class="thumb">
+              <a href="{% url 'product-detail' product_id=item.product.id %}"><img src="{{ item.product.image.url }}" alt=""></a>
+              <span class="price">{{ item.get_total }} $</span>
+            </div>
+            <div dir="ltr" class="down-content">
+              <span class="category">{{ item.product.category.name }}</span>
+              <h4>{{ item.product.title }}</h4>
+              <a  href="{% url 'product-detail' product_id=item.product.id %}"><i class="fa fa-shopping-bag"> {{ item.quantity }}</i></a>
+            </div>
+              <div align="center" class="col-lg-12 fa">
+
+            <a href="{% url 'add_quantity' product_id=item.id %}">▲</a>
+                  <br>
+                  <br>
+              <a href="{% url 'sub_quantity' product_id=item.id %}">▼</a>
+
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+      <div align="center" dir="ltr" class="item">
+      <div align="center" dir="rtl" class="down-content">
+             <h3><span>تعداد کل محصولات سبد خرید : </span><span>{{ cart.get_cart_total_items }}</span></h3>
+          <br>
+           <h3><span>قیمت کل محصولات سبد خرید : </span><span>{{ cart.get_cart_total_price }}</span></h3>
+            </div>
+          <div align="center" class="col-lg-1">
+          <div align="center" class="main-button">
+            <a href="{% url 'check_out' cart_id=cart.pk %}">پرداخت</a>
+          </div>
+        </div>
+          <br>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

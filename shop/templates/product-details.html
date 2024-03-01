@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block body %}
+  <div class="page-heading header-text">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3>{{ product.title.capitalize }}</h3>
+          <span class="breadcrumb"><a href="{% url 'store' %}">خانه</a>  >  <a href="{% url 'shop' %}">فروشگاه</a>  >  {{ product.title.capitalize }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="single-product section">
+    <div class="container">
+      <div class="row">
+          {% if product %}
+                <div class="col-lg-6">
+                  <div class="left-image">
+                    <img src="{{ product.image.url}}" alt="">
+                  </div>
+                </div>
+                <div class="col-lg-6 align-self-center">
+                  <h4>{{ product.title.capitalize }}</h4>
+                  <span class="price"><em>${{ product.price }}</em></span>
+                  <p>{{ product.description }}</p>
+                  <form id="qty" method="get" action="{% url 'add' product_id=product.id %}">
+
+                    <button type="submit"><i class="fa fa-shopping-bag"></i> اضافه کردن به سبد خرید</button>
+                    </form>
+                  <ul>
+                    <li><span>:سبک</span> <a href="{% url 'category' category=product.category.name %}">{{ product.category.name.capitalize }}</a>
+                  </ul>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sep"></div>
+                </div>
+          {% else %}
+              <h6 style="color:grey" align="center">!!!محصولی یافت نشد</h6>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="section categories related-games">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-heading">
+            <h6>{{ product.category.name.capitalize }}</h6>
+            <h2>محصولات مرتبط</h2>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="main-button">
+            <a href="{% url 'shop' %}">نمایش همه</a>
+          </div>
+        </div>
+
+        {% if related %}
+            {% for item in related %}
+             <div class="col-lg col-sm-6 col-xs-12">
+            <div class="item" style="width: 50%">
+                <h4>{{ item.title }}</h4>
+                <div class="thumb">
+                <a href="{% url 'product-detail' product_id=item.id %}"><img src="{{ item.image.url }}" alt=""></a>
+                </div>
+                </div>
+             </div>
+{#          <div class="item" style="max-width: 22%">#}
+{#            <h4>{{ i.title }}</h4>#}
+{#            <div class="thumb">#}
+{#              <a href="{% url 'product-detail' product_id=i.id %}"><img src="{{ i.image.url}}" alt=""></a>#}
+{#            </div>#}
+{#          </div>#}
+            {% endfor %}
+        {% else %}
+            <div class="col-lg-6">
+                <div class="section-heading" align="center">
+                    <h6 style="color: grey">!!!محصولی یافت نشد</h6>
+
+                </div>
+            </div>
+        {% endif %}
+        </div>
+
+      </div>
+    </div>
+
+
+{% endblock %}
